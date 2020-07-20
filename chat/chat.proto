@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "jp.chat.example/chat";
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.chat";
+option java_outer_classname = "ChatProto";
+
+package chat;
+
+service Chat {
+  rpc JoinRoom(stream ChatRequest) returns (stream ChatResponse);
+}
+
+message ChatRequest {
+  enum Method {
+    SEND_MESSAGE = 0;
+    SEND_STAMP = 1;
+  }
+  Method method = 1;
+  string text = 2;
+  int32 number = 3;
+}
+
+message ChatResponse {
+  string text = 1;
+}
